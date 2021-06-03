@@ -1,3 +1,5 @@
+const REQUEST_TIMEOUT = 500;
+
 function encrypt(data) {
   return "encrypted data";
 }
@@ -11,6 +13,7 @@ module.exports = {
   // send: send
   // requestSend: send, // if exporting function with different name
   send, // if exporting function with same name
+  REQUEST_TIMEOUT, // variable exporting
 };
 
 console.log(module);

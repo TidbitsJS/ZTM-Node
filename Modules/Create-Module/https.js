@@ -7,7 +7,7 @@ require by default look for these extensions chronologically -
 
 */
 
-const { send } = require("./request"); // ES6 destructuring
+const { send, REQUEST_TIMEOUT } = require("./request"); // ES6 destructuring
 const { read } = require("./response");
 
 /*
@@ -29,4 +29,8 @@ function makeRequest(url, data) {
 }
 
 const responseData = makeRequest("https:www.google.com", "Hello");
-console.log(responseData);
+
+// Just to use REQUEST_TIMEOUT
+setTimeout(() => {
+  console.log(responseData);
+}, REQUEST_TIMEOUT);

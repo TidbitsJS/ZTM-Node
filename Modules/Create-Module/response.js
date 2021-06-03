@@ -25,7 +25,7 @@ exports.requestRead = read
 
 or even better,
 
-exports.read() {
+exports.read = function read()  {
     return decrypt("data")
 }
 
