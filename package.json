@@ -1,0 +1,23 @@
+{
+  "name": "ztm-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "kepler": "nodemon ./Planets/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TidbitsJS/ZTM-Node.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TidbitsJS/ZTM-Node/issues"
+  },
+  "homepage": "https://github.com/TidbitsJS/ZTM-Node#readme",
+  "dependencies": {
+    "csv-parse": "^4.15.4"
+  }
+}
