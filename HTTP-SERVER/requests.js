@@ -3,13 +3,31 @@ const http = require("http");
 // specific port
 const PORT = 3000;
 
+const friends = [
+  {
+    id: 0,
+    name: "Nicola Tesla",
+  },
+  {
+    id: 1,
+    name: "Sir Isaac Newton",
+  },
+  {
+    id: 2,
+    name: "Albert Einstein",
+  },
+];
+
 const server = http.createServer();
 
 server.on("request", (req, res) => {
+  // splitting the url in array of strings ex., /friends/3 -> ['', 'friends', '3']
+  const items = req.url.split("/");
+
   if (req.url === "/") {
     res.setHeader("Content-Type", "text/plain");
     res.end("Welcome");
-  } else if (req.url === "/friends") {
+  } else if (items[1] === "friends") {
     /*
     
         res.writeHead(200, {
@@ -22,13 +40,21 @@ server.on("request", (req, res) => {
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
 
-    res.end(
-      JSON.stringify({
-        id: 1,
-        name: "Sir Issac Newton",
-      })
-    );
-  } else if (req.url === "/messages") {
+    if (items.length === 3) {
+      const friendIndex = +items[2]; // convert string to number
+
+      // Check if valid index is provided
+      if (friendIndex <= friends.length - 1 && friendIndex >= 0) {
+        res.end(JSON.stringify(friends[friendIndex]));
+      } else {
+        res.statusCode = 404;
+        res.setHeader("Content-Type", "text/plain");
+        res.end("404 Not Found");
+      }
+    } else {
+      res.end(JSON.stringify(friends));
+    }
+  } else if (items[1] === "messages") {
     res.setHeader("Content-Type", "text/html");
 
     // writing html
@@ -44,7 +70,7 @@ server.on("request", (req, res) => {
     res.end();
   } else {
     res.statusCode = 404;
-    res.end();
+    res.end("No such router"); // for any other routes that are not registered.
   }
 });
 
