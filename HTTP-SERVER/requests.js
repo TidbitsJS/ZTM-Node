@@ -38,6 +38,11 @@ server.on("request", (req, res) => {
       // convert string to json object
       friends.push(JSON.parse(friend));
     });
+
+    // request (readable stream) piped with response (writable stream) - to echo back the data received in request as response
+    req.pipe(res);
+
+    // Note - No need to use res.end(), as with the power of pipe(), reponse will close the connection.
   } else if (req.method === "GET" && items[1] === "friends") {
     /*
     
@@ -54,9 +59,13 @@ server.on("request", (req, res) => {
     if (items.length === 3) {
       const friendIndex = +items[2]; // convert string to number
 
+      // better check
+      const isFriend = friends.find((friend) => friend.id === friendIndex);
+
       // Check if valid index is provided
-      if (friendIndex <= friends.length - 1 && friendIndex >= 0) {
-        res.end(JSON.stringify(friends[friendIndex]));
+      if (friendIndex >= 0 && isFriend) {
+        console.log(friendIndex);
+        res.end(JSON.stringify(isFriend));
       } else {
         res.statusCode = 404;
         res.setHeader("Content-Type", "text/plain");
@@ -94,9 +103,11 @@ server.listen(PORT, () => {
 
   To do 'POST' request in browser, follow the steps ↓
       1. Open developer tools, console
-      2. fetch('http://localhost:3000/friends', {
+      2.  fetch('http://localhost:3000/friends', {
             method: 'POST',
             body: JSON.stringify({id: 3, name: 'Ryan Dahl' })
-      })
+          })
+          .then((response) => response.json())
+          .then((friend) => console.log(friend))
 
 */
