@@ -27,7 +27,18 @@ server.on("request", (req, res) => {
   if (req.url === "/") {
     res.setHeader("Content-Type", "text/plain");
     res.end("Welcome");
-  } else if (items[1] === "friends") {
+  } else if (req.method === "POST" && items[1] === "friends") {
+    // listen for data events
+    req.on("data", (data) => {
+      // data will be raw bytes, so convert it into string
+      const friend = data.toString();
+
+      console.log("Request: ", friend);
+
+      // convert string to json object
+      friends.push(JSON.parse(friend));
+    });
+  } else if (req.method === "GET" && items[1] === "friends") {
     /*
     
         res.writeHead(200, {
@@ -54,7 +65,7 @@ server.on("request", (req, res) => {
     } else {
       res.end(JSON.stringify(friends));
     }
-  } else if (items[1] === "messages") {
+  } else if (req.method === "GET" && items[1] === "messages") {
     res.setHeader("Content-Type", "text/html");
 
     // writing html
@@ -78,3 +89,14 @@ server.on("request", (req, res) => {
 server.listen(PORT, () => {
   console.log(`Listening on port ${PORT}...`);
 });
+
+/*
+
+  To do 'POST' request in browser, follow the steps ↓
+      1. Open developer tools, console
+      2. fetch('http://localhost:3000/friends', {
+            method: 'POST',
+            body: JSON.stringify({id: 3, name: 'Ryan Dahl' })
+      })
+
+*/
