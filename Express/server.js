@@ -3,6 +3,17 @@ const express = require("express");
 const app = express();
 const PORT = 3000;
 
+const friends = [
+  {
+    id: 0,
+    name: "Albert Einstein",
+  },
+  {
+    id: 1,
+    name: "Sir Isaac Newton",
+  },
+];
+
 app.get("/", (req, res) => {
   // Content-Type will be set to 'text/html'
   res.send("Welcome");
@@ -10,9 +21,23 @@ app.get("/", (req, res) => {
 
 app.get("/friends", (req, res) => {
   // Content-Type will be set to 'application/json'
-  res.send({
-    id: 1,
-    name: "Sir Issac Newton",
+  // res.send(friends);
+
+  // to explicitly declare it as json
+  res.json(friends);
+});
+
+app.get("/friends/:friendId", (req, res) => {
+  const friendId = +req.params.friendId;
+  const friend = friends[friendId];
+
+  if (friend) {
+    res.status(200).json(friend);
+  }
+
+  // chaining status code with json response
+  res.status(404).json({
+    error: "Friend does not exist",
   });
 });
 
