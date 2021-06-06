@@ -14,6 +14,18 @@ const friends = [
   },
 ];
 
+// create middleware
+app.use((req, res, next) => {
+  const start = Date.now();
+
+  // to call the next endpoint i.e app.METHOD (GET/POST or any)
+  next();
+
+  // to measure the time taken to process the request
+  const delta = Date.now() - start;
+  console.log(`${req.method} ${req.url} ${delta}ms`);
+});
+
 app.get("/", (req, res) => {
   // Content-Type will be set to 'text/html'
   res.send("Welcome");
@@ -33,12 +45,12 @@ app.get("/friends/:friendId", (req, res) => {
 
   if (friend) {
     res.status(200).json(friend);
+  } else {
+    // chaining status code with json response
+    res.status(404).json({
+      error: "Friend does not exist",
+    });
   }
-
-  // chaining status code with json response
-  res.status(404).json({
-    error: "Friend does not exist",
-  });
 });
 
 app.get("/messages", (req, res) => {
