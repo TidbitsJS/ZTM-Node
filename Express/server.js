@@ -1,8 +1,7 @@
 const express = require("express");
 
-const friendsController = require("./controllers/friends.controller");
-const messagesController = require("./controllers/messages.controller");
-const models = require("./models/friends.model");
+const messagesRouter = require("./routes/messages.router");
+const friendsRouter = require("./routes/friends.router");
 
 const app = express();
 const PORT = 3000;
@@ -16,7 +15,7 @@ app.use((req, res, next) => {
 
   // to measure the time taken to process the request
   const delta = Date.now() - start;
-  console.log(`${req.method} ${req.url} ${delta}ms`);
+  console.log(`${req.method} ${req.baseUrl}${req.url} ${delta}ms`);
 });
 
 // Built-in express middleware to parse incoming requests that has JSON
@@ -27,15 +26,9 @@ app.get("/", (req, res) => {
   res.send("Welcome");
 });
 
-app.get("/friends", friendsController.getFriends);
-
-app.post("/friends", friendsController.postFriend);
-
-app.get("/friends/:friendId", friendsController.getFriend);
-
-app.get("/messages", messagesController.getMessages);
-
-app.post("/messages", messagesController.postMessages);
+// pass router middleware as an argument to app.use()
+app.use("/friends", friendsRouter);
+app.use("/messages", messagesRouter);
 
 // app starts a server and listens on specified port
 app.listen(PORT, () => console.log(`Server listening on ${PORT}....`));
