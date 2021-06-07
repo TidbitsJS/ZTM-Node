@@ -1,18 +1,11 @@
 const express = require("express");
 
+const friendsController = require("./controllers/friends.controller");
+const messagesController = require("./controllers/messages.controller");
+const models = require("./models/friends.model");
+
 const app = express();
 const PORT = 3000;
-
-const friends = [
-  {
-    id: 0,
-    name: "Albert Einstein",
-  },
-  {
-    id: 1,
-    name: "Sir Isaac Newton",
-  },
-];
 
 // create middleware
 app.use((req, res, next) => {
@@ -26,44 +19,23 @@ app.use((req, res, next) => {
   console.log(`${req.method} ${req.url} ${delta}ms`);
 });
 
+// Built-in express middleware to parse incoming requests that has JSON
+app.use(express.json());
+
 app.get("/", (req, res) => {
   // Content-Type will be set to 'text/html'
   res.send("Welcome");
 });
 
-app.get("/friends", (req, res) => {
-  // Content-Type will be set to 'application/json'
-  // res.send(friends);
+app.get("/friends", friendsController.getFriends);
 
-  // to explicitly declare it as json
-  res.json(friends);
-});
+app.post("/friends", friendsController.postFriend);
 
-app.get("/friends/:friendId", (req, res) => {
-  const friendId = +req.params.friendId;
-  const friend = friends[friendId];
+app.get("/friends/:friendId", friendsController.getFriend);
 
-  if (friend) {
-    res.status(200).json(friend);
-  } else {
-    // chaining status code with json response
-    res.status(404).json({
-      error: "Friend does not exist",
-    });
-  }
-});
+app.get("/messages", messagesController.getMessages);
 
-app.get("/messages", (req, res) => {
-  // Content-Type will be set to 'text/html'
-  res.send(
-    "<ul><li>Hello, how are you?</li><li>Will you be my friend?</li></ul>"
-  );
-});
-
-app.post("/messages", (req, res) => {
-  // Content-Type will be set to 'text/html'
-  res.send("Uploading messages...");
-});
+app.post("/messages", messagesController.postMessages);
 
 // app starts a server and listens on specified port
 app.listen(PORT, () => console.log(`Server listening on ${PORT}....`));
