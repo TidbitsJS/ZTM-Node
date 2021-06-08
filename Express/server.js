@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 
 const messagesRouter = require("./routes/messages.router");
 const friendsRouter = require("./routes/friends.router");
@@ -17,6 +18,13 @@ app.use((req, res, next) => {
   const delta = Date.now() - start;
   console.log(`${req.method} ${req.baseUrl}${req.url} ${delta}ms`);
 });
+
+// Express static file middleware for frontend with specific path
+// app.use("/site", express.static("public")); // relative path
+
+// defining an absolute path
+const absolutePath = path.join(__dirname, "public");
+app.use("/site", express.static(absolutePath));
 
 // Built-in express middleware to parse incoming requests that has JSON
 app.use(express.json());

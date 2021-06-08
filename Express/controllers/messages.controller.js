@@ -12,7 +12,13 @@ function getMessages(req, res) {
   // path.join() is to help with all path scenario on different machine i.e., on linux /folder/files.jpg & windows \folder\files.jpg
 
   // __dirname is to get the name of the folder the current file lies in, here, dirname - controllers
-  const sendFile = path.join(__dirname, "..", "public", "skimountain.jpg");
+  const sendFile = path.join(
+    __dirname,
+    "..",
+    "public",
+    "images",
+    "skimountain.jpg"
+  );
   res.sendFile(sendFile);
 }
 
