@@ -5,6 +5,12 @@ const messagesRouter = require("./routes/messages.router");
 const friendsRouter = require("./routes/friends.router");
 
 const app = express();
+
+// set & load template engine hbs
+app.set("view engine", "hbs");
+
+// path to find views folder
+app.set("views", path.join(__dirname, "views"));
 const PORT = 3000;
 
 // create middleware
@@ -31,7 +37,13 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   // Content-Type will be set to 'text/html'
-  res.send("Welcome");
+  // res.send("Welcome");
+
+  // rendering hbs template file & sending data
+  res.render("index", {
+    title: "Backend",
+    caption: "Let's go skiing!",
+  });
 });
 
 // pass router middleware as an argument to app.use()
