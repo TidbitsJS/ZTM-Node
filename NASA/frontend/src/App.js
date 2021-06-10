@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 import { theme, resources, sounds } from "./settings";
+import Launch from "./pages/Launch";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           {(anim) => (
             <Router>
               <Header />
+              <Launch />
               <Footer />
             </Router>
           )}
