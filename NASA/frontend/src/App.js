@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 
 import { theme, resources, sounds } from "./settings";
 import Launch from "./pages/Launch";
+import Upcoming from "./pages/Upcoming";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
             <Router>
               <Header />
               <Launch />
+              <Upcoming />
               <Footer />
             </Router>
           )}
