@@ -1,12 +1,9 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import { Arwes, ThemeProvider, SoundsProvider, createTheme } from "arwes";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+
+import AppLayout from "./pages/AppLayout";
 
 import { theme, resources, sounds } from "./settings";
-import Launch from "./pages/Launch";
-import Upcoming from "./pages/Upcoming";
-import History from "./pages/History";
 
 const App = () => {
   return (
@@ -19,11 +16,7 @@ const App = () => {
         >
           {(anim) => (
             <Router>
-              <Header />
-              <Launch />
-              <Upcoming />
-              <Footer />
-              <History />
+              <AppLayout show={anim.entered} />
             </Router>
           )}
         </Arwes>
