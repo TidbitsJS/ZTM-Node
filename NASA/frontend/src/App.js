@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import { theme, resources, sounds } from "./settings";
 import Launch from "./pages/Launch";
 import Upcoming from "./pages/Upcoming";
+import History from "./pages/History";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
               <Launch />
               <Upcoming />
               <Footer />
+              <History />
             </Router>
           )}
         </Arwes>
