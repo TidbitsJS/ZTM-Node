@@ -46,3 +46,15 @@ Process argv property returns an array containing the command-line arguments pas
 | __filename | location |
 | require() | navigator |
 
+
+### Node Internals
+
+The V8 engine is only responsible to execute the javascript code. Rest of the part that need to be executed such as OS operations, network operations, etc. is handled by Node.js. 
+
+These operations are called as Node.js APIs which are later connected to node.js bindings. 
+
+Node bindings, written in higher level language, calls the internal code responsible to handle these operations which is written in low level language such as C/C++. It's connection between JavaScript world and C++ world. 
+
+libuv is the library that handles the I/O operations for Node.js. 
+
+![node internals](./screenshots/node_internals.png)
