@@ -25,3 +25,24 @@
 * Node.js runtime comes in two versions:
   - LTS(Long Term Support) - Stable and odd version of Node.js
   - Current - Latest and even version of Node.js
+
+
+### Process argv
+
+Process is an object that Provides information about, and control over, the current Node.js process.
+
+Process argv property returns an array containing the command-line arguments passed when the Node.js process was launched.
+
+[Check Code](./Foundations/hello.js)
+
+
+### Node VS Browser
+
+| Node.js | Browser |
+| ------ | ------ |
+| global | window |
+| process | document |
+| module | history |
+| __filename | location |
+| require() | navigator |
+
