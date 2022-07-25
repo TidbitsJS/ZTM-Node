@@ -58,3 +58,53 @@ Node bindings, written in higher level language, calls the internal code respons
 libuv is the library that handles the I/O operations for Node.js. 
 
 ![node internals](./screenshots/node_internals.png)
+
+**Is JavaScript a Synchronous or Asynchronous language?**
+
+JavaScript is a synchronous language. Then how does it handle async code in Node.js?
+
+When JavaScript is run in a certain environment like Browser or Node, it allows us to write async functionality. 
+
+It’s the libuv that handles the async tasks in Node:
+
+- File system
+- Network
+
+**JavaScript is a single-threaded programming language. Thus the node.** 
+
+Node has only one main thread which:
+
+- runs the V8 engine including Node APIs
+- has a super important part of libuv, called, event loop
+
+In node, anytime we call an asynchronous function from JavaScript, such as setTimeout or data fetch, it gets put on the event loop. 
+
+The event loop is what allows Node.js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible.
+
+How event loop executes the code?
+
+1. Most of the tasks are done directly in the operating system
+2. Using thread pool
+
+In libuv, there is a thread pool set up ahead of time. libuv is a C language having many threads
+
+So in Node,
+
+1) we have a main thread 
+
+2) Thread of pool by libuv
+
+**Myth: All asynchronous operations are handled in the thread pool**
+
+Node actually tries to avoid using thread pool as it's complex. Whenever possible libuv uses the operating system directly, the kernel.
+
+Kernel talks to computer hardware with threads of his own.
+
+Event loop is responsible for handling all these callback functions in Node. Event loop phases:
+
+- Timers
+- I/O callbacks
+- setImmediate
+- Close Callbacks
+
+![Event Loop Phases](./screenshots/event_loop.png)
