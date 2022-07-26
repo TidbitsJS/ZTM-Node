@@ -136,13 +136,40 @@ Event Emitter example: [Check Code](./Internals/event.js)
     2. .json
     3. .node
 
-```javascript
-module.exports.doYouLikeJS = true
-// OR
-exports.doYouLikeJS = true
-// OR
-const doYouLikeJS = true
-module.exports = {doYouLikeJS}
-// OR
-module.exports.doYouLikeJS = doYouLikeJS
-```
+    ```javascript
+      module.exports.doYouLikeJS = true
+      // OR
+      exports.doYouLikeJS = true
+      // OR
+      const doYouLikeJS = true
+      module.exports = {doYouLikeJS}
+      // OR
+      module.exports.doYouLikeJS = doYouLikeJS
+    ```
+
+**ECMAscript Modules**
+
+To load an ES module:
+
+* set `"type": "module"` in the package.json
+* use the .mjs extension and run `node fileName.mjs` where **m** stands for module
+
+  ECMAscript Modules example: [Check Code](./Modules/ECMAScriptModule/)
+
+**Module Cache Mechanism**
+
+* If we load a module then it’s not loaded again even if you require the same module more than once. Node cache the required module.
+
+* When a module is cached it lived under the require.cache object.
+
+  Module Cache example: [Check Code](./Modules/module-caching.js)
+
+**Should we use index.js?**
+
+* index.js is a special case in node.js. 
+
+* It allows you to treat a folder as a module. When you use a path to a folder with require function, it results in the index.js file inside that folder.
+
+* It needlessly complicated the module loading system - Ryan Dahl
+
+* It’s controversial. Developers have their own way of choosing `index.js` or not.
