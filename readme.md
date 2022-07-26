@@ -33,7 +33,7 @@ Process is an object that Provides information about, and control over, the curr
 
 Process argv property returns an array containing the command-line arguments passed when the Node.js process was launched.
 
-[Check Code](./Foundations/hello.js)
+Process argv example: [Check Code](./Foundations/hello.js)
 
 
 ### Node VS Browser
@@ -108,3 +108,41 @@ Event loop is responsible for handling all these callback functions in Node. Eve
 - Close Callbacks
 
 ![Event Loop Phases](./screenshots/event_loop.png)
+
+### Node Event Emitter
+
+* built in event module to handle events
+* all objects that emit events are instances of EventEmitter class
+
+Event Emitter example: [Check Code](./Internals/event.js)
+
+### Modules
+
+* You can’t use HTTPS URLs with the HTTP module. If used, it will throw an Error of Invalid Protocol.
+  
+  HTTP example: [Check Code](./Modules/http-example.js)
+
+* Why use modules?
+  1. Reuse existing code
+  2. Organize your code
+  3. Expose only what will be used
+
+  Modules example: [Check Code](./Modules/Create-Module/)
+
+* module is a global built-in that contains data related to the current file, such as filename, path, and exports object.
+
+* require by default look for these extensions chronologically -
+    1. .js
+    2. .json
+    3. .node
+
+```javascript
+module.exports.doYouLikeJS = true
+// OR
+exports.doYouLikeJS = true
+// OR
+const doYouLikeJS = true
+module.exports = {doYouLikeJS}
+// OR
+module.exports.doYouLikeJS = doYouLikeJS
+```
